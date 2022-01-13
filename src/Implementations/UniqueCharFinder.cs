@@ -9,6 +9,7 @@ public static class UniqueCharFinder
     /// <returns>Первый уникальный символ либо null, если такого нет</returns>
     public static char? FirstUnique(string input)
     {
-        return input.GroupBy(c => c).FirstOrDefault(c => c.Count() == 1)?.Key;
+        // TODO: Ваша реализация метода
+        throw new NotImplementedException();
     }
 }
