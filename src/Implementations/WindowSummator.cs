@@ -8,9 +8,17 @@ public static class WindowSummator
     /// <param name="input">Входной массив чисел</param>
     /// <param name="size">Ширина окна для суммирования</param>
     /// <returns>Выходной массив просуммированных значений</returns>
-    public static int[] Window(int[] input, int size)
+    public static IEnumerable<int> Window(int[] input, int size)
     {
-        // TODO: Ваша реализация метода
-        throw new NotImplementedException();
+        var sum = 0;
+        for (var i = 0; i < size - 1; i++)
+            sum += input[i];
+        
+        for (var i = size - 1; i < input.Length; i++)
+        {
+            sum += input[i];
+            yield return sum;
+            sum -= input[i - size + 1];
+        }
     }
 }

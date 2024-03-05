@@ -50,17 +50,24 @@ public class Tests
                         new TreeIterator.TreeNode('D'),
                         new TreeIterator.TreeNode('E')
                     }
-                }
+                },
+                new TreeIterator.TreeNode('C')
+                {
+                    Children = new[]
+                    {
+                        new TreeIterator.TreeNode('F')
+                    }
+                },
             }
         };
-            
+
         // Act
         var resInWidth = TreeIterator.IterateTreeInWidth(rootNode);
 
         // Assert
         resInWidth.Should().Equal(new[] { 'A', 'B', 'C', 'D', 'E', 'F' });
     }
-    
+
     [Fact]
     public void TestTreeIterationInDepth()
     {
@@ -79,11 +86,38 @@ public class Tests
                 }
             }
         };
-            
+
         // Act
         var resInDepth = TreeIterator.IterateTreeInDepth(rootNode);
 
         // Assert
         resInDepth.Should().Equal(new[] { 'A', 'B', 'D', 'E', 'C', 'F' });
+    }
+
+    [Fact]
+    public void TestChunker()
+    {
+        // Arrange
+        var source = Enumerable.Range(0, 10).ToArray();
+
+        // Act
+        var chunked = source.SplitByChunks(3);
+
+        var expectedResult = new List<IEnumerable<int>>
+        {
+            new[] { 0, 1, 2 },
+            new[] { 3, 4, 5 },
+            new[] { 6, 7, 8 },
+            new[] { 9 }
+        };
+
+        // Assert
+        var index = 0;
+        foreach (var chunk in chunked)
+        {
+            chunk.Should().BeEquivalentTo(expectedResult[index++]);
+        }
+
+        index.Should().Be(4);
     }
 }

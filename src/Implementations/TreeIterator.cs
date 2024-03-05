@@ -10,7 +10,26 @@ public static class TreeIterator
     public static char[] IterateTreeInWidth(TreeNode root)
     {
         // TODO: Ваша реализация метода
-        throw new NotImplementedException();
+        var result = new List<char>();
+        List<TreeNode> parents = new();
+        parents.Add(root);
+        result.Add(root.Label);
+        while (parents.Count != 0 && root is not null)
+        {
+            root = parents.FirstOrDefault();
+            if (root is not null)
+                parents.Remove(root);
+
+            if (root is null)
+                break;
+            
+            foreach (var child in root.Children)
+            {
+                result.Add(child.Label);
+                parents.Add(child);
+            }
+        }
+        return result.ToArray();
     }
 
     /// <summary>
